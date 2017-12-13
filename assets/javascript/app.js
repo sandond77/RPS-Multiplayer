@@ -92,3 +92,10 @@ function buttonMaker(arg){
       $(arg).append("<br>");
     }
 }
+
+
+//Things to Do
+//Figure out how firebase users works and get it so that each user writes to player 1/player 2 respectively
+//Compare player 1 and player 2 choices to see who wins 
+//Code output of game
+//Code chatroom function and possible previous choices?
