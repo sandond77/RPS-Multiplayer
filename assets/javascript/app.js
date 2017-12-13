@@ -18,3 +18,5 @@
       // No user is signed in.
     }
 });
+
+  ///Use if or else if to deal with adding player names. Whoever adds player name first will be p1
