@@ -21,49 +21,104 @@ var choices = ["rock", "paper", "scissors"]
 firebase.auth().signInAnonymously().catch(function(error) {
 });
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    if (player1Id === ""){
-      console.log("Player 1 is logged in")
-      player1Id = user.uid
-      console.log(player1Id);
 
-      $("#submitname").on("click", function(event) {
-        event.preventDefault();
 
-        var newPlayer = $("#name").val().trim();
 
-        if (newPlayer === "") {
-          alert("You did not enter anything")
-        } else if (player1Name === ""){
-            player1Name = newPlayer;
-            $("#player1").text(player1Name);
-            buttonMaker("#player1choice")
-            $("#player1result").empty();
-            $("#gamestatus").html("Waiting for Player 2");
-        } else if (player1Name !== "" && player2Name === ""){
-            player2Name = newPlayer;
-            $("#player2").text(player2Name);
-            buttonMaker("#player2choice")
-            $("#player2result").empty();
-            $("#gamestatus").html("Waiting for players to choose");
-        } else if (player1Name !== "" && player2Name !== ""){
-          alert("There are already two players. Please wait for one to leave.")
-        }
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     if (player1Id === ""){
+//       console.log("Player 1 is logged in")
+//       player1Id = user.uid
+//       console.log(player1Id);
 
-        $("#name").val('');
-      });
+//       var firebaseP1 = {
+//         "id": player1Id
+//       }
 
-    } else if (player1Id !== "" && player2Id === ""){
-      console.log("Player 2 is logged in")
-      player2Id = user.uid
-      console.log(player2Id);
-    }
+//       database.ref().set(firebaseP1);
 
-  } else {
-    // No user is signed in.
+//       $("#submitname").on("click", function(event) {
+//         event.preventDefault();
+
+//         var newPlayer = $("#name").val().trim();
+
+//         if (newPlayer === "") {
+//           alert("You did not enter anything")
+//         } else if (player1Name === ""){
+//             player1Name = newPlayer;
+//             $("#player1").text(player1Name);
+//             buttonMaker("#player1choice")
+//             $("#player1result").empty();
+//             $("#gamestatus").html("Waiting for Player 2");
+//         } else if (player1Name !== "" && player2Name === ""){
+//             player2Name = newPlayer;
+//             $("#player2").text(player2Name);
+//             buttonMaker("#player2choice")
+//             $("#player2result").empty();
+//             $("#gamestatus").html("Waiting for players to choose");
+//         } else if (player1Name !== "" && player2Name !== ""){
+//           alert("There are already two players. Please wait for one to leave.")
+//         }
+
+//         $("#name").val('');
+//       });
+
+//     } else if (player1Id !== "" && player2Id === ""){
+//       console.log("Player 2 is logged in")
+//       player2Id = user.uid
+//       console.log(player2Id);
+//     }
+
+//   } 
+
+//   -
+// });
+
+$("#submitname").on("click", function(event) {
+  event.preventDefault();
+
+  var newPlayer = $("#name").val().trim();
+
+  if (newPlayer === "") {
+    alert("You did not enter anything")
+  } else if (player1Name === ""){
+      player1Name = newPlayer;
+
+      var firebaseP1 = {
+        "name": player1Name
+      }
+
+      database.ref().push(firebaseP1);
+
+      $("#player1").text(player1Name);
+      buttonMaker("#player1choice")
+      $("#player1result").empty();
+      $("#gamestatus").html("Waiting for Player 2");
+  } else if (player1Name !== "" && player2Name === ""){
+      player2Name = newPlayer;
+      var firebaseP2 = {
+        "name": player2Name
+      }
+
+      database.ref().push(firebaseP2);
+
+      $("#player2").text(player2Name);
+      buttonMaker("#player2choice")
+      $("#player2result").empty();
+      $("#gamestatus").html("Waiting for players to choose");
+  } else if (player1Name !== "" && player2Name !== ""){
+    alert("There are already two players. Please wait for one to leave.")
   }
+
+  $("#name").val('');
 });
+
+database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+  console.log(childSnapshot.val());
+})
+
+
+
 
   ///Use if or else if to deal with adding player names. Whoever adds player name first will be p1
 
