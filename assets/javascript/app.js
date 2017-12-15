@@ -161,6 +161,6 @@ function buttonMaker(arg){
 //Things to Do
 //Figure out how firebase users works and get it so that each user writes to player 1/player 2 respectively
     //Setting player IDs to two different variables and saving them to firebase upon connection. When a user disconnects, the variables are emptied. Need firebase to push/pull variable info dynamically
+    //Make name/button making a function
 //Compare player 1 and player 2 choices to see who wins 
-//Code output of game
-//Code chatroom function and possible previous choices?
+//Code output of gamet 
